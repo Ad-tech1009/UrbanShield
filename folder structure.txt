@@ -1,0 +1,23 @@
+urban-security-management/
+│── backend/                  # Express.js API (Node.js)
+│   ├── models/               # Mongoose schemas
+│   ├── routes/               # Express routes
+│   ├── controllers/          # Business logic
+│   ├── middlewares/          # Authentication & role-based access
+│   ├── config/               # Database & env configs
+│   ├── utils/                # Utility functions
+│   ├── server.js             # Express entry point
+│── frontend/                 # Next.js UI (React-based)
+│   ├── src/                  # Next.js source folder
+│   │   ├── app/              # Next.js App Router (pages are inside this)
+│   │   │   ├── layout.js     # Root layout
+│   │   │   ├── page.js       # Home page
+│   │   │   ├── login/        # Login page
+│   │   │   ├── dashboard/    # Dashboard page
+│   │   │   ├── api/          # Server-side API routes (optional)
+│   │   ├── components/       # Reusable UI components
+│   │   ├── services/         # API handlers for backend
+│   │   ├── context/          # State management (Context API/Zustand)
+│   │   ├── utils/            # Helper functions
+│   │   ├── styles/           # Global & component styles
+│── .env                    # Documentation
