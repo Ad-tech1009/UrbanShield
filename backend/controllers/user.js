@@ -99,7 +99,7 @@ export const handlelogin = async (req, res) => {
         // Allow credentials in CORS
         res.header("Access-Control-Allow-Credentials", "true");
 
-        console.log("Set-Cookie Token:", token);
+       
 
         res.status(200).json({
             message: "Login successful",

@@ -21,12 +21,12 @@ const Login = () => {
       const data = await AuthService.login(credentials);
       const role = data.role;
       if (role === "admin") {
-        router.push("/");
+        router.push("/dashboard/admin");
       }
-      else if(role === "police"){ router.push("/d"); }
-      else if(role === "guard"){ router.push("/vfdg"); }
-      else if(role === "resident"){ router.push("/fdfd"); }
-      else if(role === "society_owner"){ router.push("/bfd"); }
+      else if(role === "police"){ router.push("/dashboard/police"); }
+      else if(role === "guard"){ router.push("/dashboard/guard"); }
+      else if(role === "resident"){ router.push("/dashboard/resident"); }
+      else if(role === "society_owner"){ router.push("/dashboard/society_owner"); }
 
 
 

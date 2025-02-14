@@ -54,7 +54,7 @@ app.use('/auth',authRoutes);
 app.post("/incident",authenticate,addIncident);
 
 
-app.get("/",authenticate ,(req, res) => {
+app.get("/chk",authenticate ,(req, res) => {
   res.send("Urban Security API is running...");
 });
 
