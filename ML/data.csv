@@ -1,0 +1,102 @@
+Incident Description,Severity Score,Severity Level
+"A minor car collision on a local road caused slight damage to both vehicles but no injuries.",25,Low
+"A small kitchen fire in a residential building was quickly extinguished by the fire department.",30,Low
+"A gas leak in a suburban neighborhood was detected and repaired without any injuries.",35,Low
+"A minor chemical spill at a factory was contained with no environmental damage.",40,Low
+"A small landslide blocked a rural road, causing minor traffic delays.",45,Medium
+"A moderate earthquake caused minor structural damage to buildings in a small town.",50,Medium
+"A bus accident on a highway resulted in minor injuries to several passengers.",55,Medium
+"A localized power outage affected 100 homes for several hours.",60,Medium
+"A small oil spill in a river was quickly contained, with minimal environmental impact.",65,Medium
+"A fire at a warehouse caused significant damage to stored goods but no injuries.",70,Medium
+"A tornado touched down in a rural area, damaging several homes and farms.",75,High
+"A major flood caused by heavy rainfall displaced hundreds of residents.",80,High
+"A large industrial explosion injured several workers and caused significant property damage.",85,High
+"A wildfire spread rapidly through a forest, threatening nearby communities.",90,High
+"A terrorist attack in a city center resulted in multiple casualties and widespread panic.",95,High
+"A train derailment caused significant damage to the tracks and nearby infrastructure.",78,High
+"A hurricane caused widespread flooding and power outages across a coastal region.",88,High
+"A chemical plant explosion released toxic fumes, requiring a large-scale evacuation.",92,High
+"A bridge collapse resulted in multiple vehicles falling into the river below.",84,High
+"A cyberattack on a major corporation disrupted services for millions of customers.",73,High
+"A small earthquake caused minor cracks in buildings but no injuries.",42,Medium
+"A car accident on a busy highway caused a traffic jam lasting several hours.",48,Medium
+"A minor fire at a retail store was quickly extinguished with no injuries.",33,Low
+"A water main break flooded a street, causing minor traffic disruptions.",37,Low
+"A small explosion at a construction site injured two workers.",52,Medium
+"A localized flood damaged several homes in a low-lying area.",58,Medium
+"A power surge caused minor damage to electrical appliances in a neighborhood.",43,Medium
+"A small plane crash in a remote area resulted in no injuries.",47,Medium
+"A minor landslide blocked a hiking trail, causing no injuries.",39,Low
+"A gas leak in a commercial building led to a brief evacuation.",41,Medium
+"A small fire at a recycling plant was quickly contained.",34,Low
+"A minor oil spill at a port was cleaned up within hours.",38,Low
+"A car accident on a rural road caused minor injuries to the driver.",44,Medium
+"A small earthquake caused minor damage to a few buildings.",49,Medium
+"A localized storm caused minor flooding in a town.",53,Medium
+"A fire at a restaurant caused moderate damage but no injuries.",57,Medium
+"A small explosion at a factory injured one worker.",62,Medium
+"A minor flood damaged a few homes in a coastal area.",67,Medium
+"A small wildfire was quickly contained by firefighters.",71,High
+"A car accident on a bridge caused minor injuries and traffic delays.",46,Medium
+"A gas leak in an apartment building led to a brief evacuation.",51,Medium
+"A small chemical spill at a lab was contained with no injuries.",56,Medium
+"A minor earthquake caused no damage but was widely felt.",61,Medium
+"A small fire at a school was quickly extinguished.",66,Medium
+"A minor landslide blocked a road, causing no injuries.",69,Medium
+"A small explosion at a construction site caused minor damage.",72,High
+"A localized flood damaged a few homes in a rural area.",76,High
+"A small fire at a warehouse was quickly contained.",79,High
+"A minor earthquake caused no damage but was felt across the region.",81,High
+"A small oil spill at a refinery was quickly cleaned up.",83,High
+"A minor car accident on a residential street caused no injuries but minor vehicle damage.",22,Low
+"A small fire in a garbage bin was quickly extinguished by a passerby.",28,Low
+"A water pipe burst in a park, causing minor flooding but no injuries.",32,Low
+"A minor power outage affected 50 homes for an hour.",36,Low
+"A small chemical spill in a lab was cleaned up without incident.",40,Low
+"A tree fell on a parked car, causing minor damage.",45,Medium
+"A moderate hailstorm damaged crops in a rural area.",50,Medium
+"A car accident on a highway caused minor injuries to two passengers.",55,Medium
+"A localized gas leak in a neighborhood was repaired without injuries.",60,Medium
+"A small fire at a construction site was quickly contained.",65,Medium
+"A minor flood in a town caused damage to a few basements.",70,Medium
+"A small explosion at a factory caused minor injuries to one worker.",75,High
+"A tornado touched down in a rural area, damaging a few barns.",80,High
+"A major flood in a city displaced dozens of families.",85,High
+"A large fire at a warehouse caused significant property damage.",90,High
+"A wildfire in a forest threatened nearby homes.",95,High
+"A train collision caused injuries to several passengers.",77,High
+"A hurricane caused flooding and power outages in a coastal town.",87,High
+"A chemical spill at a factory required a small-scale evacuation.",91,High
+"A bridge collapse caused multiple vehicles to fall into a river.",82,High
+"A cyberattack on a local government website disrupted services.",74,High
+"A small earthquake caused minor cracks in a few buildings.",43,Medium
+"A car accident on a busy street caused a traffic jam.",47,Medium
+"A minor fire at a café was quickly extinguished.",31,Low
+"A water main break flooded a street, causing minor disruptions.",35,Low
+"A small explosion at a construction site injured one worker.",52,Medium
+"A localized flood damaged a few homes in a low-lying area.",58,Medium
+"A power surge caused minor damage to appliances in a neighborhood.",63,Medium
+"A small plane crash in a remote area resulted in no injuries.",67,Medium
+"A minor landslide blocked a hiking trail, causing no injuries.",39,Low
+"A gas leak in a commercial building led to a brief evacuation.",41,Medium
+"A small fire at a recycling plant was quickly contained.",34,Low
+"A minor oil spill at a port was cleaned up within hours.",38,Low
+"A car accident on a rural road caused minor injuries to the driver.",44,Medium
+"A small earthquake caused minor damage to a few buildings.",49,Medium
+"A localized storm caused minor flooding in a town.",53,Medium
+"A fire at a restaurant caused moderate damage but no injuries.",57,Medium
+"A small explosion at a factory injured one worker.",62,Medium
+"A minor flood damaged a few homes in a coastal area.",67,Medium
+"A small wildfire was quickly contained by firefighters.",71,High
+"A car accident on a bridge caused minor injuries and traffic delays.",46,Medium
+"A gas leak in an apartment building led to a brief evacuation.",51,Medium
+"A small chemical spill at a lab was contained with no injuries.",56,Medium
+"A minor earthquake caused no damage but was widely felt.",61,Medium
+"A small fire at a school was quickly extinguished.",66,Medium
+"A minor landslide blocked a road, causing no injuries.",69,Medium
+"A small explosion at a construction site caused minor damage.",72,High
+"A localized flood damaged a few homes in a rural area.",76,High
+"A small fire at a warehouse was quickly contained.",79,High
+"A minor earthquake caused no damage but was felt across the region.",81,High
+"A small oil spill at a refinery was quickly cleaned up.",83,High
