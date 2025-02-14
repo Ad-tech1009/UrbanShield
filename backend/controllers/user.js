@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken';
 import User from '../models/userSchema.js';
 
 // Signup Controller
-
 export const handlesignup = async (req, res) => {
     try {
         const { name, email, password, phone, role } = req.body;
@@ -57,9 +56,34 @@ export const handlesignup = async (req, res) => {
     }
 };
 
+// Pending request
+// export const handleRequest = async (req, res) => {
+//     // Get all pending requests
+//     if(req.method === "GET"){
+//         try {
+//             const users = await User.find({ status: "pending" });
+//             res.status(200).json(users);
+//         } catch (error) {
+//             console.error("Pending Request Error:", error.message);
+//             res.status(500).json({ message: "Server error", error: error.message });
+//         }
+//     }
+//     // Approve or Reject request
+//     else if(req.method === "PUT"){
+//         try {
+//             const user = await User.findById(req.body.id);
+//             user.status = req.body.status;
+//             await user.save();
+//             res.status(200).json({ message: "Request updated successfully" });
+//         } catch (error) {
+//             console.error("Update Request Error:", error.message);
+//             res.status(500).json({ message: "Server error", error: error.message });
+//         }
+//     }
+// };
+
 
 // Login Controller
-
 export const handlelogin = async (req, res) => {
     try {
         const { email, password } = req.body;

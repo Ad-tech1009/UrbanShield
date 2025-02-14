@@ -12,6 +12,11 @@ const UserSchema = new mongoose.Schema(
       enum: ['admin', 'police', 'society_owner', 'guard', 'resident'], 
     },
     isActive: { type: Boolean, default: true },
+    status: {
+      type: String,
+      enum: ["pending", "approved", "rejected"],
+      default: "pending",
+    },
     createdAt: { type: Date, default: Date.now },
   },
   { timestamps: true }

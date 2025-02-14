@@ -6,7 +6,6 @@ export const authenticate = (req, res, next) => {
     }
     try {
         const token = req.cookies.token;
-        
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         
         req.user = decoded;
