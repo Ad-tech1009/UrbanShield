@@ -7,17 +7,27 @@ urban-security-management/
 │   ├── config/               # Database & env configs
 │   ├── utils/                # Utility functions
 │   ├── server.js             # Express entry point
-│── frontend/                 # Next.js UI (React-based)
-│   ├── src/                  # Next.js source folder
-│   │   ├── app/              # Next.js App Router (pages are inside this)
-│   │   │   ├── layout.js     # Root layout
-│   │   │   ├── page.js       # Home page
-│   │   │   ├── login/        # Login page
-│   │   │   ├── dashboard/    # Dashboard page
-│   │   │   ├── api/          # Server-side API routes (optional)
-│   │   ├── components/       # Reusable UI components
-│   │   ├── services/         # API handlers for backend
-│   │   ├── context/          # State management (Context API/Zustand)
-│   │   ├── utils/            # Helper functions
-│   │   ├── styles/           # Global & component styles
+│── frontend/                    # Next.js UI (React-based)
+│── src/
+│   ├── app/
+│   │   ├── layout.js         # Root layout (global structure)
+│   │   ├── page.js           # Home page
+│   │   ├── login/            # Login page
+│   │   ├── dashboard/        # Dashboard for admins/supervisors
+│   │   │   ├── page.js       # Dashboard main page
+│   │   │   ├── guards/       # Manage guards
+│   │   │   ├── reports/      # View incident reports
+│   │   ├── map/              # Live guard tracking page
+│   │   │   ├── page.js       # Map UI (Leaflet + WebSockets)
+│   │   ├── api/              # (Optional) API routes for SSR/backend calls
+│   ├── components/           # Reusable UI components
+│   │   ├── Map.js            # Map component (Leaflet + WebSockets)
+│   │   ├── GuardCard.js      # Guard info card
+│   │   ├── Sidebar.js        # Sidebar for navigation
+│   ├── services/             # API handlers for backend
+│   │   ├── guardService.js   # Fetch guards & send updates
+│   ├── context/              # State management (Context API/Zustand)
+│   │   ├── GuardContext.js   # Centralized guard tracking state
+│   ├── utils/                # Helper functions (formatting, etc.)
+│   ├── styles/               # Global & component styles
 │── .env                    # Documentation
