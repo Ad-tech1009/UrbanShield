@@ -7,7 +7,8 @@ import http from "http";
 import {Server} from "socket.io";
 import authRoutes from "./routes/authRoute.js"; // No curly braces needed
 import { authenticate, authorize } from "./Middlewares/auth.js";
-
+import { addIncident } from "./controllers/incident.js";
+import cookieParser from 'cookie-parser';
 dotenv.config();
 
 const app = express();
@@ -20,7 +21,7 @@ const io = new Server(server);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(cookieParser());
 // Database Connection
 mongoose
   .connect(process.env.MONGO_URI)
@@ -50,7 +51,10 @@ app.get("/api/guards", async (req, res) => {
 // Routes
 app.use('/auth',authRoutes);
 
-app.get("/", (req, res) => {
+app.post("/incident",authenticate,addIncident);
+
+
+app.get("/",authenticate ,(req, res) => {
   res.send("Urban Security API is running...");
 });
 

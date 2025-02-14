@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import io from "socket.io-client";
 import "leaflet/dist/leaflet.css";
+import AuthLayout from "@/components/AuthLayout";
 
 const socket = io("http://localhost:5000");
 
@@ -32,6 +33,7 @@ export default function SocietyOwnerDashboard() {
   };
 
   return (
+    <AuthLayout role="society_owner">
     <div className="p-4 space-y-4">
       {/* Real-time Guard Tracking */}
       <Card>
@@ -113,6 +115,6 @@ export default function SocietyOwnerDashboard() {
       <Button className="w-full bg-yellow-500 hover:bg-yellow-600 text-white text-lg p-3 rounded-lg">
         📢 Broadcast Security Alert
       </Button>
-    </div>
+    </div></AuthLayout>
   );
 }

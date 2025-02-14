@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import "leaflet/dist/leaflet.css";
+import AuthLayout from "@/components/AuthLayout";
 
 // Dynamically import React-Leaflet components (avoid SSR issues)
 const MapContainer = dynamic(() => import("react-leaflet").then((mod) => mod.MapContainer), { ssr: false });
@@ -29,6 +30,7 @@ export default function AdminDashboard() {
   const [liveGuards] = useState(guards);
 
   return (
+    <AuthLayout role="admin">
     <div className="grid grid-cols-12 gap-4 p-4">
       {/* Sidebar */}
       <div className="col-span-3 bg-gray-800 text-white p-4 rounded-xl">
@@ -83,6 +85,6 @@ export default function AdminDashboard() {
           </Card>
         </div>
       </div>
-    </div>
+    </div></AuthLayout>
   );
 }

@@ -6,6 +6,7 @@ import { Table, TableHeader, TableRow, TableCell, TableBody } from "@/components
 import { Button } from "@/components/ui/button";
 import io from "socket.io-client";
 import "leaflet/dist/leaflet.css";
+import AuthLayout from "@/components/AuthLayout";
 
 const socket = io("http://localhost:5000");
 
@@ -31,6 +32,7 @@ export default function PoliceDashboard() {
   };
 
   return (
+    <AuthLayout role="police">
     <div className="p-4 space-y-4">
       {/* Live Map with Guard Locations */}
       <Card>
@@ -114,5 +116,6 @@ export default function PoliceDashboard() {
         🚨 Trigger Emergency Response
       </Button>
     </div>
+    </AuthLayout>
   );
 }

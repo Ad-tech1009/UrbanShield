@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import io from "socket.io-client";
 import "leaflet/dist/leaflet.css";
+import AuthLayout from "@/components/AuthLayout";
 
 const socket = io("http://localhost:5000");
 
@@ -37,6 +38,7 @@ export default function ResidentDashboard() {
   };
 
   return (
+   <AuthLayout role="resident">
     <div className="p-4 space-y-4">
       {/* Live Map with Guards */}
       <Card>
@@ -104,5 +106,6 @@ export default function ResidentDashboard() {
         🚨 Trigger Emergency Alert
       </Button>
     </div>
+    </AuthLayout>
   );
 }

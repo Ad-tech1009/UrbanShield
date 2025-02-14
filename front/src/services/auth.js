@@ -35,6 +35,7 @@ const AuthService = {
     localStorage.removeItem("user");
   },
 
+  
   // Check if user is authenticated
   isAuthenticated() {
     return !!localStorage.getItem("token");

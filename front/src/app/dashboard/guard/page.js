@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import io from "socket.io-client";
 import "leaflet/dist/leaflet.css";
+import AuthLayout from "@/components/AuthLayout";
 
 const socket = io("http://localhost:5000");
 
@@ -40,6 +41,7 @@ export default function GuardDashboard() {
   };
 
   return (
+    <AuthLayout role="guard">
     <div className="p-4 space-y-4">
       {/* Live Location & Duty Status */}
       <Card>
@@ -81,5 +83,6 @@ export default function GuardDashboard() {
         ⚠️ Emergency SOS
       </Button>
     </div>
+    </AuthLayout>
   );
 }
