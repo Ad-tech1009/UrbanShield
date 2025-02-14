@@ -4,11 +4,12 @@ import AuthService from "@/services/auth";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const [error, setError] = useState(null);
-
+  const router = useRouter();
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
@@ -17,7 +18,21 @@ const Login = () => {
     e.preventDefault();
     setError(null);
     try {
-      await AuthService.login(credentials);
+      const data = await AuthService.login(credentials);
+      const role = data.role;
+      if (role === "admin") {
+        router.push("/");
+      }
+      else if(role === "police"){ router.push("/d"); }
+      else if(role === "guard"){ router.push("/vfdg"); }
+      else if(role === "resident"){ router.push("/fdfd"); }
+      else if(role === "society_owner"){ router.push("/bfd"); }
+
+
+
+
+
+
       alert("Login successful!");
     } catch (error) {
       setError(error.message);
@@ -26,13 +41,13 @@ const Login = () => {
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900 min-h-screen flex items-center justify-center p-4">
-      <motion.div 
-        initial={{ opacity: 0, y: -20 }} 
-        animate={{ opacity: 1, y: 0 }} 
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
         className="w-full max-w-md bg-white rounded-2xl shadow-lg dark:border dark:border-gray-700 dark:bg-gray-800 p-6"
       >
-        <motion.h1 
+        <motion.h1
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
@@ -41,7 +56,7 @@ const Login = () => {
           Sign in
         </motion.h1>
         {error && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="text-red-500 text-sm text-center mb-3"

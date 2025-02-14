@@ -22,7 +22,7 @@ const AuthService = {
       // Store token and user data
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
-      console.log(user);
+      
       return user; // Return user data
     } catch (error) {
       throw error.response?.data || "Login failed";
