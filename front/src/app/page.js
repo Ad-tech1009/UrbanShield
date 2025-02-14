@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useEffect } from "react";
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
     <div>
       <h1>Urban Shield</h1>
       <p>Backend Response: {data ? data.message : "Loading..."}</p>
+    
     </div>
   );
 }

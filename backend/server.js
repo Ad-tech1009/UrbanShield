@@ -5,15 +5,21 @@ import dotenv from "dotenv";
 import Guard from "./models/guardSchema.js";
 import http from "http";
 import {Server} from "socket.io";
-
+import authRoutes from "./routes/authRoute.js"; // No curly braces needed
+import { authenticate, authorize } from "./Middlewares/auth.js";
 
 dotenv.config();
+
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
+
+
+// Middleware
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Database Connection
 mongoose
@@ -42,6 +48,8 @@ app.get("/api/guards", async (req, res) => {
 });
 
 // Routes
+app.use('/auth',authRoutes);
+
 app.get("/", (req, res) => {
   res.send("Urban Security API is running...");
 });
