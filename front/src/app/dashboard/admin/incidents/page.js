@@ -10,19 +10,28 @@ export default function IncidentReports() {
   }, []);
 
   const fetchIncidents = async () => {
-    const res = await fetch("/api/incidents");
-    const data = await res.json();
-    setIncidents(data);
+    try {
+      const res = await fetch("http://localhost:5000/incidents");
+      if (!res.ok) throw new Error("Failed to fetch incidents");
+      const data = await res.json();
+      setIncidents(data);
+    } catch (error) {
+      console.error("Error fetching incidents:", error);
+    }
   };
 
   const handleResolve = async (id) => {
-    const res = await fetch(`/api/incidents/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status: "resolved" }),
-    });
-    const data = await res.json();
-    if (data) fetchIncidents(); // Refresh the list
+    try {
+      const res = await fetch(`http://localhost:5000/incidents/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: "Resolved" }),
+      });
+      if (!res.ok) throw new Error("Failed to update incident");
+      fetchIncidents(); // Refresh the list
+    } catch (error) {
+      console.error("Error resolving incident:", error);
+    }
   };
 
   return (
@@ -36,21 +45,32 @@ export default function IncidentReports() {
           Incident Reports
         </h2>
         <div className="space-y-4">
-          {incidents.map((incident) => (
-            <div key={incident._id} className="p-4 bg-gray-700 rounded-lg">
-              <p>Location: {incident.location}</p>
-              <p>Description: {incident.description}</p>
-              <p>Status: {incident.status}</p>
-              <div className="flex space-x-2 mt-2">
-                <button
-                  onClick={() => handleResolve(incident._id)}
-                  className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg"
-                >
-                  Resolve
-                </button>
+          {incidents.length === 0 ? (
+            <p className="text-gray-400">No incidents reported yet.</p>
+          ) : (
+            incidents.map((incident) => (
+              <div key={incident._id} className="p-4 bg-gray-700 rounded-lg">
+                <h3 className="text-lg font-semibold text-blue-400">{incident.title}</h3>
+                <p className="text-gray-300">Description: {incident.description}</p>
+                <p className="text-gray-300">
+                  Location: {incident.location.lat}, {incident.location.lng}
+                </p>
+                <p className={`font-semibold ${incident.status === "resolved" ? "text-green-400" : "text-red-400"}`}>
+                  Status: {incident.status}
+                </p>
+                <div className="flex space-x-2 mt-2">
+                  {incident.status !== "resolved" && (
+                    <button
+                      onClick={() => handleResolve(incident._id)}
+                      className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg"
+                    >
+                      Mark as Resolved
+                    </button>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
     </div>

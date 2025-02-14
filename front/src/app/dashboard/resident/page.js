@@ -6,35 +6,45 @@ import { Table, TableHeader, TableRow, TableCell, TableBody } from "@/components
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import io from "socket.io-client";
+import axios from "axios";
 import "leaflet/dist/leaflet.css";
 import AuthLayout from "@/components/AuthLayout";
-
-const socket = io("http://localhost:5000");
 
 export default function ResidentDashboard() {
   const [guards, setGuards] = useState([]);
   const [incidents, setIncidents] = useState([]);
-  const [incidentDetails, setIncidentDetails] = useState({ description: "", location: "" });
+  const [incidentDetails, setIncidentDetails] = useState({ title: "", description: "", location: { lat: null, lng: null } });
 
+  // Fetch guards & incidents
   useEffect(() => {
-    socket.on("guardLocations", (data) => {
-      setGuards(data);
-    });
+    axios.get("http://localhost:5000/incidents").then((res) => setIncidents(res.data));
 
-    socket.on("incidentReports", (data) => {
-      setIncidents(data);
-    });
-
-    return () => {
-      socket.off("guardLocations");
-      socket.off("incidentReports");
-    };
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setIncidentDetails((prev) => ({
+          ...prev,
+          location: { lat: position.coords.latitude, lng: position.coords.longitude },
+        }));
+      },
+      (error) => console.error("Error fetching location:", error),
+      { enableHighAccuracy: true }
+    );
   }, []);
 
-  const reportIncident = () => {
-    socket.emit("reportIncident", incidentDetails);
-    setIncidentDetails({ description: "", location: "" });
+  // Report an Incident
+  const reportIncident = async () => {
+    if (!incidentDetails.title || !incidentDetails.description) return alert("Please fill all fields");
+
+    try {
+      await axios.post("http://localhost:5000/incidents", incidentDetails);
+      setIncidentDetails({ title: "", description: "", location: incidentDetails.location });
+
+      // Refresh incidents
+      const res = await axios.get("http://localhost:5000/incidents");
+      setIncidents(res.data);
+    } catch (error) {
+      console.error("Error reporting incident:", error);
+    }
   };
 
   return (
@@ -45,9 +55,7 @@ export default function ResidentDashboard() {
           <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400 animate-pulse">
             Resident Dashboard
           </h1>
-          <p className="text-gray-400 mt-2">
-            Welcome back! Here you can track guards, report incidents, and view your incident history.
-          </p>
+          <p className="text-gray-400 mt-2">Track guards, report incidents, and view incident history.</p>
         </div>
 
         {/* Live Map with Guards */}
@@ -57,7 +65,7 @@ export default function ResidentDashboard() {
           </CardHeader>
           <CardContent>
             <MapContainer
-              center={[22.7766, 86.1445]}
+              center={[incidentDetails.location.lat || 22.7766, incidentDetails.location.lng || 86.1445]}
               zoom={13}
               style={{ height: "350px", width: "100%" }}
               className="rounded-xl"
@@ -80,9 +88,9 @@ export default function ResidentDashboard() {
           <CardContent className="space-y-4">
             <Input
               type="text"
-              placeholder="Incident Location"
-              value={incidentDetails.location}
-              onChange={(e) => setIncidentDetails({ ...incidentDetails, location: e.target.value })}
+              placeholder="Incident Title"
+              value={incidentDetails.title}
+              onChange={(e) => setIncidentDetails({ ...incidentDetails, title: e.target.value })}
               className="bg-gray-700 border border-gray-600 text-white placeholder-gray-400 rounded-lg p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <Textarea
@@ -91,12 +99,8 @@ export default function ResidentDashboard() {
               onChange={(e) => setIncidentDetails({ ...incidentDetails, description: e.target.value })}
               className="bg-gray-700 border border-gray-600 text-white placeholder-gray-400 rounded-lg p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <Button
-              className="relative group w-full bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-all transform hover:scale-105 overflow-hidden"
-              onClick={reportIncident}
-            >
-              <span className="absolute inset-0 bg-white opacity-10 scale-0 group-hover:scale-100 transition-transform duration-300"></span>
-              <span className="relative">Submit Report</span>
+            <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-all" onClick={reportIncident}>
+              Submit Report
             </Button>
           </CardContent>
         </Card>
@@ -110,16 +114,18 @@ export default function ResidentDashboard() {
             <Table className="text-gray-300">
               <TableHeader>
                 <TableRow className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400 text-lg">
-                  <TableCell>Location</TableCell>
+                  <TableCell>Title</TableCell>
                   <TableCell>Description</TableCell>
+                  <TableCell>Location</TableCell>
                   <TableCell>Status</TableCell>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {incidents.map((incident, index) => (
                   <TableRow key={index} className="hover:bg-gray-700 transition-colors duration-200">
-                    <TableCell>{incident.location}</TableCell>
+                    <TableCell>{incident.title}</TableCell>
                     <TableCell>{incident.description}</TableCell>
+                    <TableCell>{incident.location.lat.toFixed(4)}, {incident.location.lng.toFixed(4)}</TableCell>
                     <TableCell>{incident.status}</TableCell>
                   </TableRow>
                 ))}
@@ -127,12 +133,6 @@ export default function ResidentDashboard() {
             </Table>
           </CardContent>
         </Card>
-
-        {/* Emergency Alert Button */}
-        <Button className="relative group w-full bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700 text-white text-lg p-4 rounded-lg shadow-lg shadow-red-500/50 transition-all transform hover:scale-105 overflow-hidden">
-          <span className="absolute inset-0 bg-white opacity-20 scale-0 group-hover:scale-100 transition-transform duration-300 rounded-lg"></span>
-          <span className="relative">🚨 Trigger Emergency Alert</span>
-        </Button>
       </div>
     </AuthLayout>
   );

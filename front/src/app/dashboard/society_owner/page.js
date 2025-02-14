@@ -18,15 +18,28 @@ export default function SocietyOwnerDashboard() {
 
   useEffect(() => {
     socket.on("guardLocations", (data) => setGuards(data));
-    socket.on("incidentReports", (data) => setIncidents(data));
     socket.on("pendingGuards", (data) => setPendingGuards(data));
 
     return () => {
       socket.off("guardLocations");
-      socket.off("incidentReports");
       socket.off("pendingGuards");
     };
   }, []);
+
+  useEffect(() => {
+    fetchIncidents();
+  }, []);
+
+  const fetchIncidents = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/incidents");
+      if (!res.ok) throw new Error("Failed to fetch incidents");
+      const data = await res.json();
+      setIncidents(data);
+    } catch (error) {
+      console.error("Error fetching incidents:", error);
+    }
+  };
 
   const handleApproveGuard = (guardId) => {
     socket.emit("approveGuard", guardId);
@@ -76,16 +89,18 @@ export default function SocietyOwnerDashboard() {
             <Table className="text-gray-300">
               <TableHeader>
                 <TableRow className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400 text-lg">
-                  <TableCell>Location</TableCell>
+                  <TableCell>Title</TableCell>
                   <TableCell>Description</TableCell>
+                  <TableCell>Location</TableCell>
                   <TableCell>Status</TableCell>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {incidents.map((incident, index) => (
                   <TableRow key={index} className="hover:bg-gray-700 transition-colors duration-200">
-                    <TableCell>{incident.location}</TableCell>
+                    <TableCell>{incident.title}</TableCell>
                     <TableCell>{incident.description}</TableCell>
+                    <TableCell>{incident.location.lat}, {incident.location.lng}</TableCell>
                     <TableCell>
                       <Badge className={incident.status === "Resolved" ? "bg-green-500" : "bg-red-500"}>
                         {incident.status}
@@ -120,16 +135,11 @@ export default function SocietyOwnerDashboard() {
                     <TableCell>{guard.age}</TableCell>
                     <TableCell>{guard.experience} years</TableCell>
                     <TableCell>
-                      <Button
-                        className="relative group bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 rounded-lg transition-all transform hover:scale-105 overflow-hidden mr-2"
-                        onClick={() => handleApproveGuard(guard.id)}
-                      >
-                        <span className="absolute inset-0 bg-white opacity-10 scale-0 group-hover:scale-100 transition-transform duration-300"></span>
-                        <span className="relative">Approve</span>
+                      <Button onClick={() => handleApproveGuard(guard.id)} className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg mr-2">
+                        Approve
                       </Button>
-                      <Button className="relative group bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold py-2 px-4 rounded-lg transition-all transform hover:scale-105 overflow-hidden">
-                        <span className="absolute inset-0 bg-white opacity-10 scale-0 group-hover:scale-100 transition-transform duration-300"></span>
-                        <span className="relative">Reject</span>
+                      <Button className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg">
+                        Reject
                       </Button>
                     </TableCell>
                   </TableRow>
@@ -138,12 +148,6 @@ export default function SocietyOwnerDashboard() {
             </Table>
           </CardContent>
         </Card>
-
-        {/* Broadcast Alert Button */}
-        <Button className="relative group w-full bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700 text-white text-lg p-4 rounded-lg shadow-lg shadow-yellow-500/50 transition-all transform hover:scale-105 overflow-hidden">
-          <span className="absolute inset-0 bg-white opacity-20 scale-0 group-hover:scale-100 transition-transform duration-300 rounded-lg"></span>
-          <span className="relative">📢 Broadcast Security Alert</span>
-        </Button>
       </div>
     </AuthLayout>
   );
