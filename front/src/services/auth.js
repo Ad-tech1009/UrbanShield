@@ -35,7 +35,6 @@ const AuthService = {
     localStorage.removeItem("user");
   },
 
-  
   // Check if user is authenticated
   isAuthenticated() {
     return !!localStorage.getItem("token");
@@ -53,3 +52,13 @@ const AuthService = {
 };
 
 export default AuthService;
+
+export const axiosWithAuth = () => {
+  const token = AuthService.getToken();
+  return axios.create({
+    baseURL: API_BASE_URL,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};

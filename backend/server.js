@@ -7,7 +7,7 @@ import http from "http";
 import {Server} from "socket.io";
 import authRoutes from "./routes/authRoute.js";
 import adminRoutes from "./routes/adminRoutes.js";
-
+import policeRoute from "./routes/policeRoute.js"
 import incidentRoutes from "./routes/incidentRoutes.js";
 import guardRoutes from "./routes/guardRoute.js";
 import { authenticate, authorize } from "./middlewares/auth.js";
@@ -59,6 +59,7 @@ app.get("/api/guards", async (req, res) => {
 // Routes
 
 app.use('/guard',authenticate,guardRoutes);
+app.use('/police',authenticate,policeRoute);
 app.use('/auth',authRoutes);
 app.use("/incidents", incidentRoutes);
 

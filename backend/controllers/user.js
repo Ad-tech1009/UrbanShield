@@ -32,16 +32,9 @@ export const handlesignup = async (req, res) => {
             expiresIn: "7d",
         });
 
-        // Store token in HTTP-only cookie
-        res.cookie("token", token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production", // Set `true` in production
-            sameSite: "strict",
-            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-        });
-       console.log(token);
         res.status(201).json({
             message: "User registered successfully",
+            token, // Send token in response body
             user: {
                 id: newUser._id,
                 name: newUser.name,
@@ -56,34 +49,6 @@ export const handlesignup = async (req, res) => {
     }
 };
 
-// Pending request
-// export const handleRequest = async (req, res) => {
-//     // Get all pending requests
-//     if(req.method === "GET"){
-//         try {
-//             const users = await User.find({ status: "pending" });
-//             res.status(200).json(users);
-//         } catch (error) {
-//             console.error("Pending Request Error:", error.message);
-//             res.status(500).json({ message: "Server error", error: error.message });
-//         }
-//     }
-//     // Approve or Reject request
-//     else if(req.method === "PUT"){
-//         try {
-//             const user = await User.findById(req.body.id);
-//             user.status = req.body.status;
-//             await user.save();
-//             res.status(200).json({ message: "Request updated successfully" });
-//         } catch (error) {
-//             console.error("Update Request Error:", error.message);
-//             res.status(500).json({ message: "Server error", error: error.message });
-//         }
-//     }
-// };
-
-
-// Login Controller
 export const handlelogin = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -111,23 +76,10 @@ export const handlelogin = async (req, res) => {
             process.env.JWT_SECRET,
             { expiresIn: "7d" }
         );
-        console.log(token);
-        // Set token in HTTP-only cookie
-        res.cookie("token", token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "strict",
-            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-        });
-
-        // Allow credentials in CORS
-        res.setHeader("Access-Control-Allow-Origin", req.headers.origin || "*"); 
-        res.setHeader("Access-Control-Allow-Credentials", "true");
-
-       
 
         res.status(200).json({
             message: "Login successful",
+            token, // Send token in response body
             user: {
                 id: user._id,
                 name: user.name,
@@ -135,13 +87,11 @@ export const handlelogin = async (req, res) => {
                 role: user.role,
             },
         });
-
     } catch (error) {
         console.error("Login Error:", error.message);
         res.status(500).json({ message: "Server error", error: error.message });
     }
 };
-
 
 // Logout Controller
 export const logout = (req, res) => {

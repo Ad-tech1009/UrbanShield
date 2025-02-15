@@ -26,7 +26,6 @@ export const deleteGuard = async (req, res) => {
 
 
 // assigning shifts to guards
-
 export const assignGuards= async (req, res) => {
     const { guard_id, latitude, longitude, start_time, end_time } = req.body;
 
@@ -49,8 +48,8 @@ export const getMyShifts = async (req, res) => {
     res.json({ message: "success", shifts });
 }
 
-// check in a guard to a shift
 
+// check in a guard to a shift
 export const getNextShift = async (req, res) => {
     try {
       const userId=req.user.id;
