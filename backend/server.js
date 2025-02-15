@@ -5,18 +5,27 @@ import dotenv from "dotenv";
 import Guard from "./models/guardSchema.js";
 import http from "http";
 import {Server} from "socket.io";
-import authRoutes from "./routes/authRoute.js"; // No curly braces needed
+import authRoutes from "./routes/authRoute.js";
+import adminRoutes from "./routes/adminRoutes.js";
+
 import incidentRoutes from "./routes/incidentRoutes.js";
+import guardRoutes from "./routes/guardRoute.js";
 import { authenticate, authorize } from "./middlewares/auth.js";
 import cookieParser from 'cookie-parser';
 dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server);
-
+//const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: "*",  // Allows requests from any origin
+    methods: ["GET", "POST"],
+    credentials: true
+  }
+});
 // Middleware
-app.use(cors());
+app.use(cors({ origin: "*", credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -48,9 +57,12 @@ app.get("/api/guards", async (req, res) => {
 });
 
 // Routes
+
+app.use('/guard',authenticate,guardRoutes);
 app.use('/auth',authRoutes);
 app.use("/incidents", incidentRoutes);
 
+app.use("/admin", adminRoutes);
 
 app.get("/chk",authenticate ,(req, res) => {
   res.send("Urban Security API is running...");

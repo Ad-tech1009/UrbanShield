@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import io from "socket.io-client";
 import "leaflet/dist/leaflet.css";
 import AuthLayout from "@/components/AuthLayout";
+import GuardApprovalForm from "@/components/Approvalform";
 
 const socket = io("http://localhost:5000");
 
@@ -14,7 +15,7 @@ export default function GuardDashboard() {
   const [location, setLocation] = useState({ lat: 22.7766, lng: 86.1445 });
   const [status, setStatus] = useState("Off Duty");
   const [incident, setIncident] = useState("");
-
+  const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(
@@ -42,6 +43,8 @@ export default function GuardDashboard() {
 
   return (
     <AuthLayout role="guard">
+
+
       <div className="p-6 space-y-6 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 min-h-screen text-white">
         {/* Dashboard Header */}
         <div className="text-center mb-6">
@@ -113,6 +116,11 @@ export default function GuardDashboard() {
         </Card>
 
         {/* Emergency SOS Button */}
+        <button onClick={() => setIsOpen(true)} className="bg-blue-600 text-white px-5 py-2 rounded-lg">
+        Apply for Guard Approval
+      </button>
+      <GuardApprovalForm isOpen={isOpen} onClose={() => setIsOpen(false)} />
+
         <Button className="relative group w-full bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700 text-white text-lg p-4 rounded-lg shadow-lg shadow-red-500/50 transition-all transform hover:scale-105 overflow-hidden">
           <span className="absolute inset-0 bg-white opacity-20 scale-0 group-hover:scale-100 transition-transform duration-300 rounded-lg"></span>
           <span className="relative">⚠️ Emergency SOS</span>

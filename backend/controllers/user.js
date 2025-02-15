@@ -39,7 +39,7 @@ export const handlesignup = async (req, res) => {
             sameSite: "strict",
             maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
         });
-
+       console.log(token);
         res.status(201).json({
             message: "User registered successfully",
             user: {
@@ -111,7 +111,7 @@ export const handlelogin = async (req, res) => {
             process.env.JWT_SECRET,
             { expiresIn: "7d" }
         );
-
+        console.log(token);
         // Set token in HTTP-only cookie
         res.cookie("token", token, {
             httpOnly: true,
@@ -121,7 +121,8 @@ export const handlelogin = async (req, res) => {
         });
 
         // Allow credentials in CORS
-        res.header("Access-Control-Allow-Credentials", "true");
+        res.setHeader("Access-Control-Allow-Origin", req.headers.origin || "*"); 
+        res.setHeader("Access-Control-Allow-Credentials", "true");
 
        
 

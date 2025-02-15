@@ -32,7 +32,6 @@ router.put("/:id", async (req, res) => {
   try {
     const incident = await Incident.findById(req.params.id);
     if (!incident) return res.status(404).json({ error: "Incident not found" });
-
     incident.status = req.body.status;
     await incident.save();
     res.json({ message: "Incident updated successfully" });
